@@ -82,16 +82,62 @@ const removePlayer = async (playerId) => {
  * @param playerList - an array of player objects
  * @returns the playerContainerHTML variable.
  */
-const renderAllPlayers = (playerList) => {
+const renderAllPlayers = async (playerList) => {
     try {
-        if (LonePlayerId){
-            const 
+        if (lonePlayerId){
+            const lonePlayerObj = await fetchSinglePlayer(lonePlayerId);
+            const importantPlayer = document.createElement("div");
+            importantPlayer.setAttribute("id", "importantPlayer");
+            importantPlayer.innerHTML = `<br>
+            <h1>Star Player: ${lonePlayerObj.player.name}</h1>
+            <br> 
+            <p>Breed: ${lonePlayerObj.player.status}<p>
+            <br>
+            <img src= "${lonePlayerObj.player.imageUrl}" alt= "Picture of ${lonePlayerObj.name}" width= "600">
+            <br>`;
+            const backButton = document.createElement("button");
+            backButton.innerText = "Return to all Players";
+            importantPlayer.append(backButton);
+            backButton.addEventListener("click", () => {
+                lonePlayerId = undefined;
+                init();
+            });
+            playerContainer.replaceChild(importantPlayer);
+            //playerContainer.style.justifyContent = "flex-start";
         } 
         else if (!playerList){
             playerContainer.innerHTML = "<p>No Players on the Field.<p>"
         }
         else{
-
+            const playerCards = playerList.map((player) => {
+                const card = document.createElement("div");
+                card.setAttribute("class", "card");
+                card.innerHTML = `<br>
+                    <h1>${player.name}</h1>
+                    <br>
+                    <img src= "${player.imageUrl}" alt= "Picture of ${player.name}" width= "300">
+                    <br>`
+                const infoButton = document.createElement("button");
+                infoButton.setAttribute("class", "detailsButton");
+                infoButton.innerText = `Info about ${player.name}`;
+                card.append(infoButton);
+                infoButton.addEventListener("click", () => {
+                    singlePlayerId = player.id;
+                    init();
+                });
+                const br = document.createElement("p");
+                br.innerHTML = `<br>`;
+                card.append(br);
+                const deleteButton = document.createElement("button");
+                deleteButton.setAttribute("class", "deleteButton");
+                deleteButton.innerText = "Delete this player";
+                card.append(deleteButton);
+                deleteButton.addEventListener("click", () => {removePlayer(player.id)});
+                
+                return card;
+            })
+            playerContainer.replaceChildren(...playerCards);
+            playerContainer.style.justifyContent = "flex-start";
         }
     } catch (err) {
         console.error('Uh oh, trouble rendering players!', err);

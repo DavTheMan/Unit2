@@ -3,3 +3,69 @@
   margin: 0;
   box-sizing: border-box;
 }
+#header{
+  position: fixed;
+  width: 100%;
+  background-color: aliceblue;
+  padding: auto;
+}
+#all-players-container{
+  display: flex;
+  width: 80%;
+  flex-wrap: wrap;
+}
+#meta{
+  display: flex;
+  width: 80%;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+}
+#mainTitle{
+  color:cadetblue;
+  font-size: 50px;
+
+}
+.card{
+  border-radius: 10%;
+  border-style: solid;
+  border-width: 10px;
+  border-color: black;
+  padding: 5%;
+  margin: 5%;
+  background-color: aliceblue;
+  color: cadetblue;
+}
+#importantPlayer{
+  display: flex;
+  flex-direction: column;
+  color:cadetblue;
+  background-color: antiquewhite;
+  padding: 5%;
+  margin: 10%;
+  border-style: solid;
+  border-color: cadetblue;
+  border-width: 10px;
+}
+body{
+  border-color: antiquewhite;
+  background-color: antiquewhite;
+  font-family: 'Times New Roman', Times, serif;
+  padding: auto;
+
+}
+form{
+  display: flex;
+  flex-direction: row;
+  color: cadetblue;
+  justify-content: flex-start;
+}
+label{
+  padding-left: 3%;
+  padding-right: 3%;
+}
+img{
+  border-style: solid;
+  border-width: 5px;
+  border-color: black;
+}
